@@ -8,6 +8,12 @@ void main() => runApp(
       MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => GpsBloc()),
+          BlocProvider(create: (_) => LocationBloc()),
+          BlocProvider(
+            create: (BuildContext context) => MapBloc(
+              locationBloc: BlocProvider.of<LocationBloc>(context),
+            ),
+          ),
         ],
         child: const MyApp(),
       ),
