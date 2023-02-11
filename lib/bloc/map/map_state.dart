@@ -1,12 +1,12 @@
 part of 'map_bloc.dart';
 
-class MapState {
+class MapState extends Equatable {
   final bool isInitialized;
   final bool isFollowingUser;
   final Map<String, Polyline>? polylines;
   final Map<String, Marker>? markers;
 
-  MapState({
+  const MapState({
     this.isInitialized = false,
     this.isFollowingUser = true,
     this.polylines,
@@ -25,4 +25,12 @@ class MapState {
         polylines: polylines ?? this.polylines,
         markers: markers ?? this.markers,
       );
+
+  @override
+  List<Object?> get props => [
+        isInitialized,
+        isFollowingUser,
+        polylines,
+        markers,
+      ];
 }

@@ -1,15 +1,20 @@
 part of 'map_bloc.dart';
 
 @immutable
-abstract class MapEvent {}
+abstract class MapEvent extends Equatable {
+  const MapEvent();
+
+  @override
+  List<Object> get props => [];
+}
 
 class OnMapInitializedEvent extends MapEvent {
   final GoogleMapController controller;
-  OnMapInitializedEvent(this.controller);
+  const OnMapInitializedEvent(this.controller);
 }
 
 class OnCenterCameraOnUserEvent extends MapEvent {
   final bool isFollowingUser;
 
-  OnCenterCameraOnUserEvent(this.isFollowingUser);
+  const OnCenterCameraOnUserEvent(this.isFollowingUser);
 }

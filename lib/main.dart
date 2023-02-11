@@ -3,11 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_truck_driver_app/bloc/bloc.dart';
 import 'package:flutter_truck_driver_app/routes/routes.dart';
+import 'package:flutter_truck_driver_app/services/services.dart';
 
 void main() => runApp(
       MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => GpsBloc()),
+          BlocProvider(
+            create: (_) => GpsBloc(
+              permissionService: PermissionService(),
+              geoLocatorService: GeoLocatorService(),
+            ),
+          ),
           BlocProvider(create: (_) => LocationBloc()),
           BlocProvider(
             create: (BuildContext context) => MapBloc(

@@ -6,17 +6,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_truck_driver_app/bloc/gps/gps_bloc.dart';
 
 class GpsScreen extends StatelessWidget {
-  const GpsScreen({super.key});
+  final bool isGpsEnabled;
+
+  const GpsScreen({super.key, required this.isGpsEnabled});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<GpsBloc, GpsState>(
-        builder: (context, state) {
-          return Center(
-            child: state.isGpsEnabled ? _GpsAccess() : _GpsEnable(),
-          );
-        },
+      body: Center(
+        child: isGpsEnabled ? _GpsAccess() : _GpsEnable(),
       ),
     );
   }

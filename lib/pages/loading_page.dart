@@ -11,8 +11,9 @@ class LoadingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<GpsBloc, GpsState>(
-        builder: (context, state) =>
-            state.isAllGranted ? const MapPage() : const GpsScreen(),
+        builder: (context, state) => state.isAllGranted
+            ? const MapPage()
+            : GpsScreen(isGpsEnabled: state.isGpsEnabled),
       ),
     );
   }

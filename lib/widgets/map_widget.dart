@@ -16,7 +16,7 @@ class MapWidget extends StatelessWidget {
     final mapBloc = BlocProvider.of<MapBloc>(context);
 
     return Listener(
-      onPointerMove: (_) => mapBloc.add(OnCenterCameraOnUserEvent(false)),
+      onPointerMove: (_) => mapBloc.add(const OnCenterCameraOnUserEvent(false)),
       child: GoogleMap(
         initialCameraPosition: CameraPosition(
           target: initialLocation,

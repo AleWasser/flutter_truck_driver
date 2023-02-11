@@ -1,10 +1,10 @@
 part of 'location_bloc.dart';
 
-class LocationState {
+class LocationState extends Equatable {
   final bool isFollowingUser;
   final LatLng? lastKnownLocation;
 
-  LocationState({
+  const LocationState({
     this.isFollowingUser = false,
     this.lastKnownLocation,
   });
@@ -17,4 +17,10 @@ class LocationState {
         isFollowingUser: isFollowingUser ?? this.isFollowingUser,
         lastKnownLocation: lastKnownLocation ?? this.lastKnownLocation,
       );
+
+  @override
+  List<Object?> get props => [
+        isFollowingUser,
+        lastKnownLocation,
+      ];
 }

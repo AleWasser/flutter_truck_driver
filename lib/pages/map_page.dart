@@ -49,7 +49,7 @@ class _MapPageState extends State<MapPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () => BlocProvider.of<MapBloc>(context).add(
-          OnCenterCameraOnUserEvent(true),
+          const OnCenterCameraOnUserEvent(true),
         ),
         child: const Icon(Icons.my_location),
       ),

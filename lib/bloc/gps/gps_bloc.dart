@@ -1,18 +1,24 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'package:flutter_truck_driver_app/services/services.dart';
 
 part 'gps_event.dart';
 part 'gps_state.dart';
 
 class GpsBloc extends Bloc<GpsEvent, GpsState> {
   StreamSubscription? gpsServiceStream;
+  PermissionService permissionService;
+  GeoLocatorService geoLocatorService;
 
-  GpsBloc()
-      : super(GpsState(
+  GpsBloc({
+    required this.permissionService,
+    required this.geoLocatorService,
+  }) : super(const GpsState(
           isGpsEnabled: false,
           isGpsPermissionGranted: false,
         )) {
@@ -23,10 +29,10 @@ class GpsBloc extends Bloc<GpsEvent, GpsState> {
       ));
     });
 
-    _init();
+    init();
   }
 
-  Future<void> _init() async {
+  Future<void> init() async {
     final gpsInitStatus = await Future.wait([
       _checkGpsStatus(),
       _isPermissionGranted(),
@@ -39,13 +45,13 @@ class GpsBloc extends Bloc<GpsEvent, GpsState> {
   }
 
   Future<bool> _isPermissionGranted() async {
-    return await Permission.location.isGranted;
+    return await permissionService.isPermissionGranted;
   }
 
   Future<bool> _checkGpsStatus() async {
-    final isEnabled = await Geolocator.isLocationServiceEnabled();
+    final isEnabled = await geoLocatorService.isLocationServiceEnabled;
 
-    gpsServiceStream = Geolocator.getServiceStatusStream().listen((event) {
+    gpsServiceStream = geoLocatorService.serviceStatusStream.listen((event) {
       add(GpsAndPermissionEvent(
         isGpsEnabled: event.index == 1 ? true : false,
         isGpsPermissionGranted: state.isGpsPermissionGranted,
@@ -56,7 +62,7 @@ class GpsBloc extends Bloc<GpsEvent, GpsState> {
   }
 
   Future<void> askGpsAccess() async {
-    final status = await Permission.location.request();
+    final status = await permissionService.permissionStatus;
 
     switch (status) {
       case PermissionStatus.granted:
