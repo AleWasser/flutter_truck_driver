@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_truck_driver_app/bloc/gps/gps_bloc.dart';
 import 'package:flutter_truck_driver_app/screens/gps_screen.dart';
-import 'package:flutter_truck_driver_app/services/services.dart';
+import 'package:flutter_truck_driver_app/adapters/adapters.dart';
 
 void main() {
   testWidgets('Gps screen asks for location services if gps is not enabled',
@@ -28,8 +28,8 @@ void main() {
     await widgetTester.pumpWidget(
       BlocProvider.value(
         value: GpsBloc(
-          permissionService: PermissionService(),
-          geoLocatorService: GeoLocatorService(),
+          permissionAdapter: PermissionAdapter(),
+          geoLocatorAdapter: GeoLocatorAdapter(),
         ),
         child: const MaterialApp(
           home: GpsScreen(

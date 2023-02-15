@@ -5,12 +5,12 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:bloc/bloc.dart' as _i5;
+import 'package:bloc/bloc.dart' as _i6;
+import 'package:flutter_truck_driver_app/adapters/adapters.dart' as _i2;
 import 'package:flutter_truck_driver_app/bloc/gps/gps_bloc.dart' as _i3;
-import 'package:flutter_truck_driver_app/services/services.dart' as _i2;
-import 'package:geolocator/geolocator.dart' as _i7;
+import 'package:geolocator/geolocator.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:permission_handler/permission_handler.dart' as _i6;
+import 'package:permission_handler/permission_handler.dart' as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -23,9 +23,9 @@ import 'package:permission_handler/permission_handler.dart' as _i6;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakePermissionService_0 extends _i1.SmartFake
-    implements _i2.PermissionService {
-  _FakePermissionService_0(
+class _FakePermissionAdapter_0 extends _i1.SmartFake
+    implements _i2.PermissionAdapter {
+  _FakePermissionAdapter_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -34,9 +34,9 @@ class _FakePermissionService_0 extends _i1.SmartFake
         );
 }
 
-class _FakeGeoLocatorService_1 extends _i1.SmartFake
-    implements _i2.GeoLocatorService {
-  _FakeGeoLocatorService_1(
+class _FakeGeoLocatorAdapter_1 extends _i1.SmartFake
+    implements _i2.GeoLocatorAdapter {
+  _FakeGeoLocatorAdapter_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -55,6 +55,24 @@ class _FakeGpsState_2 extends _i1.SmartFake implements _i3.GpsState {
         );
 }
 
+/// A class which mocks [GeoLocatorAdapter].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGeoLocatorAdapter extends _i1.Mock implements _i2.GeoLocatorAdapter {
+  @override
+  _i4.Future<bool> get isLocationServiceEnabled => (super.noSuchMethod(
+        Invocation.getter(#isLocationServiceEnabled),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+  @override
+  _i4.Stream<_i5.ServiceStatus> get serviceStatusStream => (super.noSuchMethod(
+        Invocation.getter(#serviceStatusStream),
+        returnValue: _i4.Stream<_i5.ServiceStatus>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i5.ServiceStatus>.empty(),
+      ) as _i4.Stream<_i5.ServiceStatus>);
+}
+
 /// A class which mocks [GpsBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -69,44 +87,44 @@ class MockGpsBloc extends _i1.Mock implements _i3.GpsBloc {
         returnValueForMissingStub: null,
       );
   @override
-  _i2.PermissionService get permissionService => (super.noSuchMethod(
-        Invocation.getter(#permissionService),
-        returnValue: _FakePermissionService_0(
+  _i2.PermissionAdapter get permissionAdapter => (super.noSuchMethod(
+        Invocation.getter(#permissionAdapter),
+        returnValue: _FakePermissionAdapter_0(
           this,
-          Invocation.getter(#permissionService),
+          Invocation.getter(#permissionAdapter),
         ),
-        returnValueForMissingStub: _FakePermissionService_0(
+        returnValueForMissingStub: _FakePermissionAdapter_0(
           this,
-          Invocation.getter(#permissionService),
+          Invocation.getter(#permissionAdapter),
         ),
-      ) as _i2.PermissionService);
+      ) as _i2.PermissionAdapter);
   @override
-  set permissionService(_i2.PermissionService? _permissionService) =>
+  set permissionAdapter(_i2.PermissionAdapter? _permissionAdapter) =>
       super.noSuchMethod(
         Invocation.setter(
-          #permissionService,
-          _permissionService,
+          #permissionAdapter,
+          _permissionAdapter,
         ),
         returnValueForMissingStub: null,
       );
   @override
-  _i2.GeoLocatorService get geoLocatorService => (super.noSuchMethod(
-        Invocation.getter(#geoLocatorService),
-        returnValue: _FakeGeoLocatorService_1(
+  _i2.GeoLocatorAdapter get geoLocatorAdapter => (super.noSuchMethod(
+        Invocation.getter(#geoLocatorAdapter),
+        returnValue: _FakeGeoLocatorAdapter_1(
           this,
-          Invocation.getter(#geoLocatorService),
+          Invocation.getter(#geoLocatorAdapter),
         ),
-        returnValueForMissingStub: _FakeGeoLocatorService_1(
+        returnValueForMissingStub: _FakeGeoLocatorAdapter_1(
           this,
-          Invocation.getter(#geoLocatorService),
+          Invocation.getter(#geoLocatorAdapter),
         ),
-      ) as _i2.GeoLocatorService);
+      ) as _i2.GeoLocatorAdapter);
   @override
-  set geoLocatorService(_i2.GeoLocatorService? _geoLocatorService) =>
+  set geoLocatorAdapter(_i2.GeoLocatorAdapter? _geoLocatorAdapter) =>
       super.noSuchMethod(
         Invocation.setter(
-          #geoLocatorService,
-          _geoLocatorService,
+          #geoLocatorAdapter,
+          _geoLocatorAdapter,
         ),
         returnValueForMissingStub: null,
       );
@@ -134,6 +152,15 @@ class MockGpsBloc extends _i1.Mock implements _i3.GpsBloc {
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
+  @override
+  _i4.Future<void> init() => (super.noSuchMethod(
+        Invocation.method(
+          #init,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
   @override
   _i4.Future<void> askGpsAccess() => (super.noSuchMethod(
         Invocation.method(
@@ -178,8 +205,8 @@ class MockGpsBloc extends _i1.Mock implements _i3.GpsBloc {
       );
   @override
   void on<E extends _i3.GpsEvent>(
-    _i5.EventHandler<E, _i3.GpsState>? handler, {
-    _i5.EventTransformer<E>? transformer,
+    _i6.EventHandler<E, _i3.GpsState>? handler, {
+    _i6.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -190,7 +217,7 @@ class MockGpsBloc extends _i1.Mock implements _i3.GpsBloc {
         returnValueForMissingStub: null,
       );
   @override
-  void onTransition(_i5.Transition<_i3.GpsEvent, _i3.GpsState>? transition) =>
+  void onTransition(_i6.Transition<_i3.GpsEvent, _i3.GpsState>? transition) =>
       super.noSuchMethod(
         Invocation.method(
           #onTransition,
@@ -199,7 +226,7 @@ class MockGpsBloc extends _i1.Mock implements _i3.GpsBloc {
         returnValueForMissingStub: null,
       );
   @override
-  void onChange(_i5.Change<_i3.GpsState>? change) => super.noSuchMethod(
+  void onChange(_i6.Change<_i3.GpsState>? change) => super.noSuchMethod(
         Invocation.method(
           #onChange,
           [change],
@@ -238,10 +265,10 @@ class MockGpsBloc extends _i1.Mock implements _i3.GpsBloc {
       );
 }
 
-/// A class which mocks [PermissionService].
+/// A class which mocks [PermissionAdapter].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPermissionService extends _i1.Mock implements _i2.PermissionService {
+class MockPermissionAdapter extends _i1.Mock implements _i2.PermissionAdapter {
   @override
   _i4.Future<bool> get isPermissionGranted => (super.noSuchMethod(
         Invocation.getter(#isPermissionGranted),
@@ -249,29 +276,11 @@ class MockPermissionService extends _i1.Mock implements _i2.PermissionService {
         returnValueForMissingStub: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
   @override
-  _i4.Future<_i6.PermissionStatus> get permissionStatus => (super.noSuchMethod(
+  _i4.Future<_i7.PermissionStatus> get permissionStatus => (super.noSuchMethod(
         Invocation.getter(#permissionStatus),
         returnValue:
-            _i4.Future<_i6.PermissionStatus>.value(_i6.PermissionStatus.denied),
+            _i4.Future<_i7.PermissionStatus>.value(_i7.PermissionStatus.denied),
         returnValueForMissingStub:
-            _i4.Future<_i6.PermissionStatus>.value(_i6.PermissionStatus.denied),
-      ) as _i4.Future<_i6.PermissionStatus>);
-}
-
-/// A class which mocks [GeoLocatorService].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockGeoLocatorService extends _i1.Mock implements _i2.GeoLocatorService {
-  @override
-  _i4.Future<bool> get isLocationServiceEnabled => (super.noSuchMethod(
-        Invocation.getter(#isLocationServiceEnabled),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
-  @override
-  _i4.Stream<_i7.ServiceStatus> get serviceStatusStream => (super.noSuchMethod(
-        Invocation.getter(#serviceStatusStream),
-        returnValue: _i4.Stream<_i7.ServiceStatus>.empty(),
-        returnValueForMissingStub: _i4.Stream<_i7.ServiceStatus>.empty(),
-      ) as _i4.Stream<_i7.ServiceStatus>);
+            _i4.Future<_i7.PermissionStatus>.value(_i7.PermissionStatus.denied),
+      ) as _i4.Future<_i7.PermissionStatus>);
 }

@@ -6,8 +6,8 @@
 import 'dart:async' as _i4;
 
 import 'package:bloc/bloc.dart' as _i5;
+import 'package:flutter_truck_driver_app/adapters/adapters.dart' as _i2;
 import 'package:flutter_truck_driver_app/bloc/gps/gps_bloc.dart' as _i3;
-import 'package:flutter_truck_driver_app/services/services.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -21,9 +21,9 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakePermissionService_0 extends _i1.SmartFake
-    implements _i2.PermissionService {
-  _FakePermissionService_0(
+class _FakePermissionAdapter_0 extends _i1.SmartFake
+    implements _i2.PermissionAdapter {
+  _FakePermissionAdapter_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -32,9 +32,9 @@ class _FakePermissionService_0 extends _i1.SmartFake
         );
 }
 
-class _FakeGeoLocatorService_1 extends _i1.SmartFake
-    implements _i2.GeoLocatorService {
-  _FakeGeoLocatorService_1(
+class _FakeGeoLocatorAdapter_1 extends _i1.SmartFake
+    implements _i2.GeoLocatorAdapter {
+  _FakeGeoLocatorAdapter_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -67,44 +67,44 @@ class MockGpsBloc extends _i1.Mock implements _i3.GpsBloc {
         returnValueForMissingStub: null,
       );
   @override
-  _i2.PermissionService get permissionService => (super.noSuchMethod(
-        Invocation.getter(#permissionService),
-        returnValue: _FakePermissionService_0(
+  _i2.PermissionAdapter get permissionAdapter => (super.noSuchMethod(
+        Invocation.getter(#permissionAdapter),
+        returnValue: _FakePermissionAdapter_0(
           this,
-          Invocation.getter(#permissionService),
+          Invocation.getter(#permissionAdapter),
         ),
-        returnValueForMissingStub: _FakePermissionService_0(
+        returnValueForMissingStub: _FakePermissionAdapter_0(
           this,
-          Invocation.getter(#permissionService),
+          Invocation.getter(#permissionAdapter),
         ),
-      ) as _i2.PermissionService);
+      ) as _i2.PermissionAdapter);
   @override
-  set permissionService(_i2.PermissionService? _permissionService) =>
+  set permissionAdapter(_i2.PermissionAdapter? _permissionAdapter) =>
       super.noSuchMethod(
         Invocation.setter(
-          #permissionService,
-          _permissionService,
+          #permissionAdapter,
+          _permissionAdapter,
         ),
         returnValueForMissingStub: null,
       );
   @override
-  _i2.GeoLocatorService get geoLocatorService => (super.noSuchMethod(
-        Invocation.getter(#geoLocatorService),
-        returnValue: _FakeGeoLocatorService_1(
+  _i2.GeoLocatorAdapter get geoLocatorAdapter => (super.noSuchMethod(
+        Invocation.getter(#geoLocatorAdapter),
+        returnValue: _FakeGeoLocatorAdapter_1(
           this,
-          Invocation.getter(#geoLocatorService),
+          Invocation.getter(#geoLocatorAdapter),
         ),
-        returnValueForMissingStub: _FakeGeoLocatorService_1(
+        returnValueForMissingStub: _FakeGeoLocatorAdapter_1(
           this,
-          Invocation.getter(#geoLocatorService),
+          Invocation.getter(#geoLocatorAdapter),
         ),
-      ) as _i2.GeoLocatorService);
+      ) as _i2.GeoLocatorAdapter);
   @override
-  set geoLocatorService(_i2.GeoLocatorService? _geoLocatorService) =>
+  set geoLocatorAdapter(_i2.GeoLocatorAdapter? _geoLocatorAdapter) =>
       super.noSuchMethod(
         Invocation.setter(
-          #geoLocatorService,
-          _geoLocatorService,
+          #geoLocatorAdapter,
+          _geoLocatorAdapter,
         ),
         returnValueForMissingStub: null,
       );
@@ -132,6 +132,15 @@ class MockGpsBloc extends _i1.Mock implements _i3.GpsBloc {
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
+  @override
+  _i4.Future<void> init() => (super.noSuchMethod(
+        Invocation.method(
+          #init,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
   @override
   _i4.Future<void> askGpsAccess() => (super.noSuchMethod(
         Invocation.method(

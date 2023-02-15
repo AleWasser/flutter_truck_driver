@@ -1,6 +1,6 @@
 import 'package:geolocator/geolocator.dart' show Geolocator, ServiceStatus;
 
-class GeoLocatorService {
+class GeoLocatorAdapter {
   Future<bool> get isLocationServiceEnabled async {
     return await Geolocator.isLocationServiceEnabled();
   }

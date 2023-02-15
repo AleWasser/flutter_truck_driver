@@ -5,19 +5,19 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'package:flutter_truck_driver_app/services/services.dart';
+import 'package:flutter_truck_driver_app/adapters/adapters.dart';
 
 part 'gps_event.dart';
 part 'gps_state.dart';
 
 class GpsBloc extends Bloc<GpsEvent, GpsState> {
   StreamSubscription? gpsServiceStream;
-  PermissionService permissionService;
-  GeoLocatorService geoLocatorService;
+  PermissionAdapter permissionAdapter;
+  GeoLocatorAdapter geoLocatorAdapter;
 
   GpsBloc({
-    required this.permissionService,
-    required this.geoLocatorService,
+    required this.permissionAdapter,
+    required this.geoLocatorAdapter,
   }) : super(const GpsState(
           isGpsEnabled: false,
           isGpsPermissionGranted: false,
@@ -45,13 +45,13 @@ class GpsBloc extends Bloc<GpsEvent, GpsState> {
   }
 
   Future<bool> _isPermissionGranted() async {
-    return await permissionService.isPermissionGranted;
+    return await permissionAdapter.isPermissionGranted;
   }
 
   Future<bool> _checkGpsStatus() async {
-    final isEnabled = await geoLocatorService.isLocationServiceEnabled;
+    final isEnabled = await geoLocatorAdapter.isLocationServiceEnabled;
 
-    gpsServiceStream = geoLocatorService.serviceStatusStream.listen((event) {
+    gpsServiceStream = geoLocatorAdapter.serviceStatusStream.listen((event) {
       add(GpsAndPermissionEvent(
         isGpsEnabled: event.index == 1 ? true : false,
         isGpsPermissionGranted: state.isGpsPermissionGranted,
@@ -62,7 +62,7 @@ class GpsBloc extends Bloc<GpsEvent, GpsState> {
   }
 
   Future<void> askGpsAccess() async {
-    final status = await permissionService.permissionStatus;
+    final status = await permissionAdapter.permissionStatus;
 
     switch (status) {
       case PermissionStatus.granted:

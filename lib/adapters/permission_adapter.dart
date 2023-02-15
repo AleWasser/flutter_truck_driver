@@ -1,6 +1,6 @@
 import 'package:permission_handler/permission_handler.dart';
 
-class PermissionService {
+class PermissionAdapter {
   Future<bool> get isPermissionGranted async {
     return await Permission.location.isGranted;
   }

@@ -8,24 +8,24 @@ import 'package:test/test.dart';
 
 import 'gps_bloc_test.mocks.dart';
 import 'package:flutter_truck_driver_app/bloc/gps/gps_bloc.dart';
-import 'package:flutter_truck_driver_app/services/services.dart';
+import 'package:flutter_truck_driver_app/adapters/adapters.dart';
 
 @GenerateNiceMocks([
-  MockSpec<GeoLocatorService>(),
+  MockSpec<GeoLocatorAdapter>(),
   MockSpec<GpsBloc>(),
-  MockSpec<PermissionService>(),
+  MockSpec<PermissionAdapter>(),
 ])
 void main() {
   group('GpsBloc', () {
-    late GeoLocatorService geoLocatorService;
+    late GeoLocatorAdapter geoLocatorAdapter;
     late GpsBloc gpsBloc;
-    late PermissionService permissionService;
+    late PermissionAdapter permissionAdapter;
 
     setUp(() {
       WidgetsFlutterBinding.ensureInitialized();
-      geoLocatorService = MockGeoLocatorService();
+      geoLocatorAdapter = MockGeoLocatorAdapter();
       gpsBloc = MockGpsBloc();
-      permissionService = MockPermissionService();
+      permissionAdapter = MockPermissionAdapter();
 
       when(gpsBloc.state).thenReturn(
         const GpsState(
@@ -43,14 +43,14 @@ void main() {
     blocTest(
       'Emits true states when the permissions are granted',
       setUp: () {
-        when(permissionService.isPermissionGranted)
+        when(permissionAdapter.isPermissionGranted)
             .thenAnswer((_) async => true);
-        when(geoLocatorService.isLocationServiceEnabled)
+        when(geoLocatorAdapter.isLocationServiceEnabled)
             .thenAnswer((_) async => true);
       },
       build: () => GpsBloc(
-        permissionService: permissionService,
-        geoLocatorService: geoLocatorService,
+        permissionAdapter: permissionAdapter,
+        geoLocatorAdapter: geoLocatorAdapter,
       ),
       act: (bloc) => bloc.add(
         const GpsAndPermissionEvent(
@@ -66,14 +66,14 @@ void main() {
     blocTest(
       'Emits false states when the permissions are not granted',
       setUp: () {
-        when(permissionService.isPermissionGranted)
+        when(permissionAdapter.isPermissionGranted)
             .thenAnswer((_) async => false);
-        when(geoLocatorService.isLocationServiceEnabled)
+        when(geoLocatorAdapter.isLocationServiceEnabled)
             .thenAnswer((_) async => false);
       },
       build: () => GpsBloc(
-        permissionService: permissionService,
-        geoLocatorService: geoLocatorService,
+        permissionAdapter: permissionAdapter,
+        geoLocatorAdapter: geoLocatorAdapter,
       ),
       act: (bloc) => bloc.add(
         const GpsAndPermissionEvent(
@@ -89,16 +89,16 @@ void main() {
     blocTest(
       'askGpsAccess returns isGpsPermissionGranted true if access is granted',
       setUp: () {
-        when(permissionService.isPermissionGranted)
+        when(permissionAdapter.isPermissionGranted)
             .thenAnswer((_) async => false);
-        when(geoLocatorService.isLocationServiceEnabled)
+        when(geoLocatorAdapter.isLocationServiceEnabled)
             .thenAnswer((_) async => true);
-        when(permissionService.permissionStatus)
+        when(permissionAdapter.permissionStatus)
             .thenAnswer((_) async => PermissionStatus.granted);
       },
       build: () => GpsBloc(
-        permissionService: permissionService,
-        geoLocatorService: geoLocatorService,
+        permissionAdapter: permissionAdapter,
+        geoLocatorAdapter: geoLocatorAdapter,
       ),
       act: (bloc) async {
         await bloc.init();
@@ -113,16 +113,16 @@ void main() {
     blocTest(
       'askGpsAccess returns isGpsPermissionGranted false if access is not granted',
       setUp: () {
-        when(permissionService.isPermissionGranted)
+        when(permissionAdapter.isPermissionGranted)
             .thenAnswer((_) async => false);
-        when(geoLocatorService.isLocationServiceEnabled)
+        when(geoLocatorAdapter.isLocationServiceEnabled)
             .thenAnswer((_) async => true);
-        when(permissionService.permissionStatus)
+        when(permissionAdapter.permissionStatus)
             .thenAnswer((_) async => PermissionStatus.denied);
       },
       build: () => GpsBloc(
-        permissionService: permissionService,
-        geoLocatorService: geoLocatorService,
+        permissionAdapter: permissionAdapter,
+        geoLocatorAdapter: geoLocatorAdapter,
       ),
       act: (bloc) async {
         await bloc.init();
