@@ -54,7 +54,7 @@ void main() {
         MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => gpsBloc),
-            BlocProvider(create: (_) => LocationBloc()),
+            BlocProvider(create: (_) => LocationBloc(mapBloc: MapBloc())),
           ],
           child: const MaterialApp(
             home: LoadingPage(),

@@ -22,8 +22,8 @@ void main() {
   );
 
   setUp(() {
-    locationBloc = MockLocationBloc();
     mapBloc = MockMapBloc();
+    locationBloc = MockLocationBloc();
 
     when(locationBloc.state).thenReturn(
       LocationState(lastKnownLocation: testLocation),
@@ -33,11 +33,12 @@ void main() {
     testWidgets("It renders a GoogleMap widget",
         (WidgetTester widgetTester) async {
       await widgetTester.pumpWidget(
-        BlocProvider.value(
-          value: mapBloc,
-          child: MaterialApp(
-            home: MapWidget(initialLocation: testLocation),
-          ),
+        MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => mapBloc),
+            BlocProvider(create: (_) => locationBloc),
+          ],
+          child: MaterialApp(home: MapWidget(initialLocation: testLocation)),
         ),
       );
 
@@ -47,11 +48,12 @@ void main() {
     testWidgets("It triggers an event when the user scroll the screen",
         (WidgetTester widgetTester) async {
       await widgetTester.pumpWidget(
-        BlocProvider.value(
-          value: mapBloc,
-          child: MaterialApp(
-            home: MapWidget(initialLocation: testLocation),
-          ),
+        MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => mapBloc),
+            BlocProvider(create: (_) => locationBloc),
+          ],
+          child: MaterialApp(home: MapWidget(initialLocation: testLocation)),
         ),
       );
 
@@ -65,7 +67,7 @@ void main() {
       await gesture.up();
       await widgetTester.pumpAndSettle();
 
-      verify(mapBloc.add(const OnCenterCameraOnUserEvent(false))).called(1);
+      verify(locationBloc.add(OnStopFollowingUser())).called(1);
     });
   });
 }

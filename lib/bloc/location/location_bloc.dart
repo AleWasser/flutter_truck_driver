@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_truck_driver_app/bloc/map/map_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
 import 'package:meta/meta.dart';
@@ -11,23 +12,18 @@ part 'location_state.dart';
 
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
   StreamSubscription<Position>? positionStream;
+  final MapBloc mapBloc;
 
-  LocationBloc() : super(const LocationState()) {
-    on<OnStartFollowingUser>(
-      (event, emit) => emit(
-        state.copyWith(
-          isFollowingUser: true,
-        ),
-      ),
-    );
+  LocationBloc({required this.mapBloc}) : super(const LocationState()) {
+    on<OnStartFollowingUser>((event, emit) {
+      followUser();
+      emit(state.copyWith(isFollowingUser: true));
+    });
 
-    on<OnStopFollowingUser>(
-      (event, emit) => emit(
-        state.copyWith(
-          isFollowingUser: false,
-        ),
-      ),
-    );
+    on<OnStopFollowingUser>((event, emit) {
+      stopFollowingUser();
+      emit(state.copyWith(isFollowingUser: false));
+    });
 
     on<OnNewUserLocationEvent>(
       (event, emit) => emit(
@@ -43,15 +39,14 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     add(OnNewUserLocationEvent(LatLng(position.latitude, position.longitude)));
   }
 
-  void startFollowingUser() {
+  void followUser() {
     positionStream = Geolocator.getPositionStream().listen((event) {
-      final position = event;
-      add(OnStartFollowingUser());
-      add(
-        OnNewUserLocationEvent(
-          LatLng(position.latitude, position.longitude),
-        ),
-      );
+      final coordinates = LatLng(event.latitude, event.longitude);
+      add(OnNewUserLocationEvent(coordinates));
+
+      if (state.isFollowingUser) {
+        mapBloc.add(OnMoveCameraToCoordinatesEvent(coordinates));
+      }
     });
   }
 

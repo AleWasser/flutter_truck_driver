@@ -7,8 +7,8 @@ import 'dart:async' as _i4;
 
 import 'package:bloc/bloc.dart' as _i6;
 import 'package:flutter_truck_driver_app/bloc/location/location_bloc.dart'
-    as _i2;
-import 'package:flutter_truck_driver_app/bloc/map/map_bloc.dart' as _i3;
+    as _i3;
+import 'package:flutter_truck_driver_app/bloc/map/map_bloc.dart' as _i2;
 import 'package:geolocator/geolocator.dart' as _i5;
 import 'package:google_maps_flutter/google_maps_flutter.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
@@ -24,8 +24,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeLocationState_0 extends _i1.SmartFake implements _i2.LocationState {
-  _FakeLocationState_0(
+class _FakeMapBloc_0 extends _i1.SmartFake implements _i2.MapBloc {
+  _FakeMapBloc_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -34,8 +34,8 @@ class _FakeLocationState_0 extends _i1.SmartFake implements _i2.LocationState {
         );
 }
 
-class _FakeLocationBloc_1 extends _i1.SmartFake implements _i2.LocationBloc {
-  _FakeLocationBloc_1(
+class _FakeLocationState_1 extends _i1.SmartFake implements _i3.LocationState {
+  _FakeLocationState_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -44,7 +44,7 @@ class _FakeLocationBloc_1 extends _i1.SmartFake implements _i2.LocationBloc {
         );
 }
 
-class _FakeMapState_2 extends _i1.SmartFake implements _i3.MapState {
+class _FakeMapState_2 extends _i1.SmartFake implements _i2.MapState {
   _FakeMapState_2(
     Object parent,
     Invocation parentInvocation,
@@ -57,7 +57,7 @@ class _FakeMapState_2 extends _i1.SmartFake implements _i3.MapState {
 /// A class which mocks [LocationBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLocationBloc extends _i1.Mock implements _i2.LocationBloc {
+class MockLocationBloc extends _i1.Mock implements _i3.LocationBloc {
   @override
   set positionStream(_i4.StreamSubscription<_i5.Position>? _positionStream) =>
       super.noSuchMethod(
@@ -68,23 +68,35 @@ class MockLocationBloc extends _i1.Mock implements _i2.LocationBloc {
         returnValueForMissingStub: null,
       );
   @override
-  _i2.LocationState get state => (super.noSuchMethod(
-        Invocation.getter(#state),
-        returnValue: _FakeLocationState_0(
+  _i2.MapBloc get mapBloc => (super.noSuchMethod(
+        Invocation.getter(#mapBloc),
+        returnValue: _FakeMapBloc_0(
           this,
-          Invocation.getter(#state),
+          Invocation.getter(#mapBloc),
         ),
-        returnValueForMissingStub: _FakeLocationState_0(
+        returnValueForMissingStub: _FakeMapBloc_0(
           this,
-          Invocation.getter(#state),
+          Invocation.getter(#mapBloc),
         ),
-      ) as _i2.LocationState);
+      ) as _i2.MapBloc);
   @override
-  _i4.Stream<_i2.LocationState> get stream => (super.noSuchMethod(
+  _i3.LocationState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _FakeLocationState_1(
+          this,
+          Invocation.getter(#state),
+        ),
+        returnValueForMissingStub: _FakeLocationState_1(
+          this,
+          Invocation.getter(#state),
+        ),
+      ) as _i3.LocationState);
+  @override
+  _i4.Stream<_i3.LocationState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i4.Stream<_i2.LocationState>.empty(),
-        returnValueForMissingStub: _i4.Stream<_i2.LocationState>.empty(),
-      ) as _i4.Stream<_i2.LocationState>);
+        returnValue: _i4.Stream<_i3.LocationState>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i3.LocationState>.empty(),
+      ) as _i4.Stream<_i3.LocationState>);
   @override
   bool get isClosed => (super.noSuchMethod(
         Invocation.getter(#isClosed),
@@ -101,9 +113,9 @@ class MockLocationBloc extends _i1.Mock implements _i2.LocationBloc {
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  void startFollowingUser() => super.noSuchMethod(
+  void followUser() => super.noSuchMethod(
         Invocation.method(
-          #startFollowingUser,
+          #followUser,
           [],
         ),
         returnValueForMissingStub: null,
@@ -126,7 +138,7 @@ class MockLocationBloc extends _i1.Mock implements _i2.LocationBloc {
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  void add(_i2.LocationEvent? event) => super.noSuchMethod(
+  void add(_i3.LocationEvent? event) => super.noSuchMethod(
         Invocation.method(
           #add,
           [event],
@@ -134,7 +146,7 @@ class MockLocationBloc extends _i1.Mock implements _i2.LocationBloc {
         returnValueForMissingStub: null,
       );
   @override
-  void onEvent(_i2.LocationEvent? event) => super.noSuchMethod(
+  void onEvent(_i3.LocationEvent? event) => super.noSuchMethod(
         Invocation.method(
           #onEvent,
           [event],
@@ -142,7 +154,7 @@ class MockLocationBloc extends _i1.Mock implements _i2.LocationBloc {
         returnValueForMissingStub: null,
       );
   @override
-  void emit(_i2.LocationState? state) => super.noSuchMethod(
+  void emit(_i3.LocationState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -150,8 +162,8 @@ class MockLocationBloc extends _i1.Mock implements _i2.LocationBloc {
         returnValueForMissingStub: null,
       );
   @override
-  void on<E extends _i2.LocationEvent>(
-    _i6.EventHandler<E, _i2.LocationState>? handler, {
+  void on<E extends _i3.LocationEvent>(
+    _i6.EventHandler<E, _i3.LocationState>? handler, {
     _i6.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
@@ -164,7 +176,7 @@ class MockLocationBloc extends _i1.Mock implements _i2.LocationBloc {
       );
   @override
   void onTransition(
-          _i6.Transition<_i2.LocationEvent, _i2.LocationState>? transition) =>
+          _i6.Transition<_i3.LocationEvent, _i3.LocationState>? transition) =>
       super.noSuchMethod(
         Invocation.method(
           #onTransition,
@@ -173,7 +185,7 @@ class MockLocationBloc extends _i1.Mock implements _i2.LocationBloc {
         returnValueForMissingStub: null,
       );
   @override
-  void onChange(_i6.Change<_i2.LocationState>? change) => super.noSuchMethod(
+  void onChange(_i6.Change<_i3.LocationState>? change) => super.noSuchMethod(
         Invocation.method(
           #onChange,
           [change],
@@ -215,22 +227,10 @@ class MockLocationBloc extends _i1.Mock implements _i2.LocationBloc {
 /// A class which mocks [MapBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMapBloc extends _i1.Mock implements _i3.MapBloc {
-  @override
-  _i2.LocationBloc get locationBloc => (super.noSuchMethod(
-        Invocation.getter(#locationBloc),
-        returnValue: _FakeLocationBloc_1(
-          this,
-          Invocation.getter(#locationBloc),
-        ),
-        returnValueForMissingStub: _FakeLocationBloc_1(
-          this,
-          Invocation.getter(#locationBloc),
-        ),
-      ) as _i2.LocationBloc);
+class MockMapBloc extends _i1.Mock implements _i2.MapBloc {
   @override
   set locationStateSubscription(
-          _i4.StreamSubscription<_i2.LocationState>?
+          _i4.StreamSubscription<_i3.LocationState>?
               _locationStateSubscription) =>
       super.noSuchMethod(
         Invocation.setter(
@@ -240,7 +240,7 @@ class MockMapBloc extends _i1.Mock implements _i3.MapBloc {
         returnValueForMissingStub: null,
       );
   @override
-  _i3.MapState get state => (super.noSuchMethod(
+  _i2.MapState get state => (super.noSuchMethod(
         Invocation.getter(#state),
         returnValue: _FakeMapState_2(
           this,
@@ -250,13 +250,13 @@ class MockMapBloc extends _i1.Mock implements _i3.MapBloc {
           this,
           Invocation.getter(#state),
         ),
-      ) as _i3.MapState);
+      ) as _i2.MapState);
   @override
-  _i4.Stream<_i3.MapState> get stream => (super.noSuchMethod(
+  _i4.Stream<_i2.MapState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i4.Stream<_i3.MapState>.empty(),
-        returnValueForMissingStub: _i4.Stream<_i3.MapState>.empty(),
-      ) as _i4.Stream<_i3.MapState>);
+        returnValue: _i4.Stream<_i2.MapState>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i2.MapState>.empty(),
+      ) as _i4.Stream<_i2.MapState>);
   @override
   bool get isClosed => (super.noSuchMethod(
         Invocation.getter(#isClosed),
@@ -264,15 +264,15 @@ class MockMapBloc extends _i1.Mock implements _i3.MapBloc {
         returnValueForMissingStub: false,
       ) as bool);
   @override
-  void moveCamera(_i7.LatLng? newLocation) => super.noSuchMethod(
+  void moveCamera(_i7.LatLng? coordinates) => super.noSuchMethod(
         Invocation.method(
           #moveCamera,
-          [newLocation],
+          [coordinates],
         ),
         returnValueForMissingStub: null,
       );
   @override
-  void add(_i3.MapEvent? event) => super.noSuchMethod(
+  void add(_i2.MapEvent? event) => super.noSuchMethod(
         Invocation.method(
           #add,
           [event],
@@ -280,7 +280,7 @@ class MockMapBloc extends _i1.Mock implements _i3.MapBloc {
         returnValueForMissingStub: null,
       );
   @override
-  void onEvent(_i3.MapEvent? event) => super.noSuchMethod(
+  void onEvent(_i2.MapEvent? event) => super.noSuchMethod(
         Invocation.method(
           #onEvent,
           [event],
@@ -288,7 +288,7 @@ class MockMapBloc extends _i1.Mock implements _i3.MapBloc {
         returnValueForMissingStub: null,
       );
   @override
-  void emit(_i3.MapState? state) => super.noSuchMethod(
+  void emit(_i2.MapState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -296,8 +296,8 @@ class MockMapBloc extends _i1.Mock implements _i3.MapBloc {
         returnValueForMissingStub: null,
       );
   @override
-  void on<E extends _i3.MapEvent>(
-    _i6.EventHandler<E, _i3.MapState>? handler, {
+  void on<E extends _i2.MapEvent>(
+    _i6.EventHandler<E, _i2.MapState>? handler, {
     _i6.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
@@ -309,7 +309,7 @@ class MockMapBloc extends _i1.Mock implements _i3.MapBloc {
         returnValueForMissingStub: null,
       );
   @override
-  void onTransition(_i6.Transition<_i3.MapEvent, _i3.MapState>? transition) =>
+  void onTransition(_i6.Transition<_i2.MapEvent, _i2.MapState>? transition) =>
       super.noSuchMethod(
         Invocation.method(
           #onTransition,
@@ -327,7 +327,7 @@ class MockMapBloc extends _i1.Mock implements _i3.MapBloc {
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
-  void onChange(_i6.Change<_i3.MapState>? change) => super.noSuchMethod(
+  void onChange(_i6.Change<_i2.MapState>? change) => super.noSuchMethod(
         Invocation.method(
           #onChange,
           [change],

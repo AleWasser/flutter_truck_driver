@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_truck_driver_app/helpers/search_delegate_helper.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({super.key});
+  final SearchDelegate searchDelegate;
+  final SearchDelegateHelper searchDelegateHelper;
+  const SearchBar({
+    super.key,
+    required this.searchDelegate,
+    required this.searchDelegateHelper,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +18,13 @@ class SearchBar extends StatelessWidget {
         margin: const EdgeInsets.only(top: 10),
         padding: const EdgeInsets.symmetric(horizontal: 40),
         child: GestureDetector(
-          onTap: () {
-            // TODO: Run search delegate on user tap
+          onTap: () async {
+            final result = await showSearch(
+              context: context,
+              delegate: searchDelegate,
+            );
+            if (result == null) return;
+            searchDelegateHelper.handleCitySearchResult(result.coordinates);
           },
           child: Container(
             padding: const EdgeInsets.symmetric(

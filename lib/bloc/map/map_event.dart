@@ -13,8 +13,8 @@ class OnMapInitializedEvent extends MapEvent {
   const OnMapInitializedEvent(this.controller);
 }
 
-class OnCenterCameraOnUserEvent extends MapEvent {
-  final bool isFollowingUser;
+class OnMoveCameraToCoordinatesEvent extends MapEvent {
+  final LatLng coordinates;
 
-  const OnCenterCameraOnUserEvent(this.isFollowingUser);
+  const OnMoveCameraToCoordinatesEvent(this.coordinates);
 }

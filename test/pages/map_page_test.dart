@@ -96,7 +96,8 @@ void main() {
           floatingActionButton,
           findsOneWidget,
         );
-        verify(mapBloc.add(const OnCenterCameraOnUserEvent(true))).called(1);
+
+        verify(locationBloc.add(OnStartFollowingUser())).called(1);
       },
     );
   });

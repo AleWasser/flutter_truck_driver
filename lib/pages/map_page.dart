@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_truck_driver_app/bloc/bloc.dart';
+import 'package:flutter_truck_driver_app/delegates/search_city_delegate.dart';
+import 'package:flutter_truck_driver_app/helpers/search_delegate_helper.dart';
 import 'package:flutter_truck_driver_app/widgets/widgets.dart';
 
 class MapPage extends StatefulWidget {
@@ -17,7 +19,7 @@ class _MapPageState extends State<MapPage> {
   @override
   void initState() {
     locationBloc = BlocProvider.of<LocationBloc>(context);
-    locationBloc.startFollowingUser();
+    locationBloc.followUser();
     super.initState();
   }
 
@@ -41,16 +43,22 @@ class _MapPageState extends State<MapPage> {
           return Stack(
             children: [
               MapWidget(initialLocation: state.lastKnownLocation!),
-              const SearchBar(),
+              SearchBar(
+                searchDelegate: SearchCityDelegate(),
+                searchDelegateHelper: SearchDelegateHelper(
+                  mapBloc: BlocProvider.of<MapBloc>(context),
+                  locationBloc: locationBloc,
+                ),
+              ),
             ],
           );
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => BlocProvider.of<MapBloc>(context).add(
-          const OnCenterCameraOnUserEvent(true),
-        ),
+        onPressed: () {
+          locationBloc.add(OnStartFollowingUser());
+        },
         child: const Icon(Icons.my_location),
       ),
     );

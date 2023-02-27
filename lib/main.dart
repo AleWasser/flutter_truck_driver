@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_truck_driver_app/bloc/bloc.dart';
+import 'package:flutter_truck_driver_app/repositories/geo_location_repository.dart';
 import 'package:flutter_truck_driver_app/routes/routes.dart';
 import 'package:flutter_truck_driver_app/adapters/adapters.dart';
 
@@ -14,10 +15,15 @@ void main() => runApp(
               geoLocatorAdapter: GeoLocatorAdapter(),
             ),
           ),
-          BlocProvider(create: (_) => LocationBloc()),
+          BlocProvider(create: (_) => MapBloc()),
           BlocProvider(
-            create: (BuildContext context) => MapBloc(
-              locationBloc: BlocProvider.of<LocationBloc>(context),
+            create: (BuildContext context) => LocationBloc(
+              mapBloc: BlocProvider.of<MapBloc>(context),
+            ),
+          ),
+          BlocProvider(
+            create: (_) => SearchBloc(
+              geoLocationRepository: GeoLocationRepository(),
             ),
           ),
         ],
