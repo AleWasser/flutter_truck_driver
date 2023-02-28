@@ -7,9 +7,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapWidget extends StatelessWidget {
   final LatLng initialLocation;
+  final Set<Polygon> polygons;
   const MapWidget({
     super.key,
     required this.initialLocation,
+    required this.polygons,
   });
 
   @override
@@ -30,6 +32,7 @@ class MapWidget extends StatelessWidget {
         onMapCreated: (controller) {
           mapBloc.add(OnMapInitializedEvent(controller));
         },
+        polygons: polygons,
       ),
     );
   }

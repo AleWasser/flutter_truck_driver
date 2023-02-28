@@ -1,5 +1,4 @@
 import 'package:flutter_truck_driver_app/bloc/bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SearchDelegateHelper {
   final MapBloc mapBloc;
@@ -8,8 +7,9 @@ class SearchDelegateHelper {
 
   SearchDelegateHelper({required this.mapBloc, required this.locationBloc});
 
-  void handleCitySearchResult(LatLng coordinates) {
+  void handleSearchResult(dynamic result) {
     locationBloc.add(OnStopFollowingUser());
-    mapBloc.add(OnMoveCameraToCoordinatesEvent(coordinates));
+    mapBloc.add(OnMoveCameraToCoordinatesEvent(result.coordinates));
+    mapBloc.createArea(result.area);
   }
 }

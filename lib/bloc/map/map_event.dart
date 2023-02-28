@@ -18,3 +18,9 @@ class OnMoveCameraToCoordinatesEvent extends MapEvent {
 
   const OnMoveCameraToCoordinatesEvent(this.coordinates);
 }
+
+class OnNewPolygonsEvent extends MapEvent {
+  final Map<String, Polygon> polygons;
+
+  const OnNewPolygonsEvent(this.polygons);
+}

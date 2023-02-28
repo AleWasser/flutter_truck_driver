@@ -15,10 +15,12 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   late LocationBloc locationBloc;
+  late MapBloc mapBloc;
 
   @override
   void initState() {
     locationBloc = BlocProvider.of<LocationBloc>(context);
+    mapBloc = BlocProvider.of<MapBloc>(context);
     locationBloc.followUser();
     super.initState();
   }
@@ -42,11 +44,14 @@ class _MapPageState extends State<MapPage> {
 
           return Stack(
             children: [
-              MapWidget(initialLocation: state.lastKnownLocation!),
+              MapWidget(
+                initialLocation: state.lastKnownLocation!,
+                polygons: mapBloc.state.polygons.values.toSet(),
+              ),
               SearchBar(
                 searchDelegate: SearchCityDelegate(),
                 searchDelegateHelper: SearchDelegateHelper(
-                  mapBloc: BlocProvider.of<MapBloc>(context),
+                  mapBloc: mapBloc,
                   locationBloc: locationBloc,
                 ),
               ),

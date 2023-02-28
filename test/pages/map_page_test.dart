@@ -29,6 +29,7 @@ void main() {
         ),
       ),
     );
+    when(mapBloc.state).thenReturn(const MapState(polygons: {}));
   });
 
   group('Map Page', () {
@@ -38,8 +39,11 @@ void main() {
         when(locationBloc.state).thenReturn(const LocationState());
 
         await widgetTester.pumpWidget(
-          BlocProvider.value(
-            value: locationBloc,
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => locationBloc),
+              BlocProvider(create: (_) => mapBloc),
+            ],
             child: const MaterialApp(
               home: MapPage(),
             ),

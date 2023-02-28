@@ -28,6 +28,7 @@ void main() {
     when(locationBloc.state).thenReturn(
       LocationState(lastKnownLocation: testLocation),
     );
+    when(mapBloc.state).thenReturn(const MapState(polygons: {}));
   });
   group('Google map widget', () {
     testWidgets("It renders a GoogleMap widget",
@@ -38,7 +39,12 @@ void main() {
             BlocProvider(create: (_) => mapBloc),
             BlocProvider(create: (_) => locationBloc),
           ],
-          child: MaterialApp(home: MapWidget(initialLocation: testLocation)),
+          child: MaterialApp(
+            home: MapWidget(
+              initialLocation: testLocation,
+              polygons: mapBloc.state.polygons.values.toSet(),
+            ),
+          ),
         ),
       );
 
@@ -53,7 +59,12 @@ void main() {
             BlocProvider(create: (_) => mapBloc),
             BlocProvider(create: (_) => locationBloc),
           ],
-          child: MaterialApp(home: MapWidget(initialLocation: testLocation)),
+          child: MaterialApp(
+            home: MapWidget(
+              initialLocation: testLocation,
+              polygons: mapBloc.state.polygons.values.toSet(),
+            ),
+          ),
         ),
       );
 

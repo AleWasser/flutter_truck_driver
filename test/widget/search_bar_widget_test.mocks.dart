@@ -284,6 +284,14 @@ class MockMapBloc extends _i1.Mock implements _i2.MapBloc {
         returnValueForMissingStub: null,
       );
   @override
+  void createArea(List<_i7.LatLng>? coordinates) => super.noSuchMethod(
+        Invocation.method(
+          #createArea,
+          [coordinates],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   void add(_i2.MapEvent? event) => super.noSuchMethod(
         Invocation.method(
           #add,
@@ -416,10 +424,10 @@ class MockSearchDelegateHelper extends _i1.Mock
         returnValueForMissingStub: null,
       );
   @override
-  void handleCitySearchResult(_i7.LatLng? coordinates) => super.noSuchMethod(
+  void handleSearchResult(dynamic result) => super.noSuchMethod(
         Invocation.method(
-          #handleResult,
-          [coordinates],
+          #handleSearchResult,
+          [result],
         ),
         returnValueForMissingStub: null,
       );

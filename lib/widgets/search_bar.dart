@@ -24,7 +24,7 @@ class SearchBar extends StatelessWidget {
               delegate: searchDelegate,
             );
             if (result == null) return;
-            searchDelegateHelper.handleCitySearchResult(result.coordinates);
+            searchDelegateHelper.handleSearchResult(result);
           },
           child: Container(
             padding: const EdgeInsets.symmetric(

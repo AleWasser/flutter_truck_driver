@@ -95,8 +95,7 @@ void main() {
       final chicagoCoordinates = geoLocationRepository
           .getGeo()
           .where((element) => element.city == 'Chicago')
-          .first
-          .coordinates;
+          .first;
 
       await widgetTester.pumpWidget(
         MultiBlocProvider(
@@ -136,7 +135,7 @@ void main() {
       expect(find.text('Where is your next destination?'), findsOneWidget);
       expect(find.text('Search a city'), findsNothing);
       verify(
-        searchDelegateHelper.handleCitySearchResult(chicagoCoordinates),
+        searchDelegateHelper.handleSearchResult(chicagoCoordinates),
       ).called(1);
     });
 
@@ -149,14 +148,16 @@ void main() {
       final chicagoCoordinates = geoLocationRepository
           .getGeo()
           .where((element) => element.city == 'Chicago')
-          .first
-          .coordinates;
+          .first;
 
-      searchDelegateHelper.handleCitySearchResult(chicagoCoordinates);
+      searchDelegateHelper.handleSearchResult(chicagoCoordinates);
       verify(locationBloc.add(OnStopFollowingUser())).called(1);
       verify(
-        mapBloc.add(OnMoveCameraToCoordinatesEvent(chicagoCoordinates)),
+        mapBloc.add(
+          OnMoveCameraToCoordinatesEvent(chicagoCoordinates.coordinates),
+        ),
       ).called(1);
+      verify(mapBloc.createArea(chicagoCoordinates.area)).called(1);
     });
   });
 }
